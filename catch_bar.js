@@ -2,7 +2,7 @@ import { CATCH_BAR_INITIAL_POSITION } from "./public/globals.js";
 
 import { computeCatchBarCurrentPosition } from "./public/globals.js";
 
-export default function CatchBar() {
+export default function CatchBar(swappedDirectionCallback) {
   let lastSwapAt = undefined; // Timestamp
   let lastSwapPosition = undefined; // Globals
   let direction = undefined; // up or down
@@ -11,6 +11,10 @@ export default function CatchBar() {
     lastSwapAt = Date.now();
     lastSwapPosition = CATCH_BAR_INITIAL_POSITION;
     direction = "down";
+
+    if (swappedDirectionCallback) {
+      swappedDirectionCallback();
+    }
   };
 
   const updateDirection = (newDirection) => {
@@ -25,6 +29,10 @@ export default function CatchBar() {
       lastSwapPosition,
       "catchBar" + direction
     );
+
+    if (swappedDirectionCallback) {
+      swappedDirectionCallback();
+    }
   };
 
   const getInfo = () => {
