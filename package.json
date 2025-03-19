@@ -7,15 +7,15 @@
     "test": "jest --bail --runInBand --clearCache && jest --bail --runInBand"
   },
   "dependencies": {
-    "cors": "",
-    "express": "",
-    "ws": ""
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "ws": "^8.18.1"
   },
   "devDependencies": {
     "@babel/core": "",
     "@babel/preset-env": "",
     "babel-jest": "",
-    "jest": ""
+    "jest": "^29.7.0"
   },
   "jest": {
     "transform": {
@@ -28,6 +28,8 @@
     "testSequencer": "<rootDir>/tests/customTestSequencer.cjs"
   },
   "babel": {
-    "presets": ["@babel/preset-env"]
+    "presets": [
+      "@babel/preset-env"
+    ]
   }
 }
