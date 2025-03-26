@@ -5,11 +5,9 @@ import {
   ATTEMPTS_DIFFICULTY,
 } from "./public/globals.js";
 
-import {} from "./public/globals.js";
-
 export default function Game() {
   let playerState = "standing"; // "standing", "line_cast", "fish_bit", "playing_minigame"
-  let attemptNumber = 0; // 0 < ATTEMPTS_DIFFICULTY[difficulty].length
+  let attemptNumber = 0; // Cycles through 0 to ATTEMPTS_DIFFICULTY.length-1
   let catchingMinigame = CatchingMinigame(() => {
     playerState = "standing";
   });
@@ -29,15 +27,21 @@ export default function Game() {
     fishBitTimer = setTimeout(() => {
       playerState = "fish_bit";
 
-      waitingForBiteResolve();
-      waitingForBiteResolve = null; // Para evitar que se pueda ejecutar multiples veces
+      if (waitingForBiteResolve) {
+        waitingForBiteResolve();
+        waitingForBiteResolve = null; // Prevent multiple executions
+      }
+
       fishEscapeTimer = setTimeout(() => {
         playerState = "standing";
-        waitingForBiteReject();
+        if (waitingForBiteReject) {
+          waitingForBiteReject(playerState);
+          waitingForBiteReject = null;
+        }
       }, PULL_ROD_TIMEOUT_MS);
     }, FISH_BIT_TIMEOUT_MS);
 
-    return playerState;
+    return null;
   };
 
   const waitForBite = () => {
@@ -52,50 +56,47 @@ export default function Game() {
   };
 
   const reelIn = () => {
+    const currentState = playerState;
+  
     if (playerState === "line_cast") {
       playerState = "standing";
-
-      // Reject the promise
+  
       if (waitingForBiteReject) {
-        waitingForBiteReject(playerState);
+        waitingForBiteReject(currentState);
         waitingForBiteReject = null;
         waitingForBiteResolve = null;
       }
-
+  
       if (fishBitTimer) {
         clearTimeout(fishBitTimer);
         fishBitTimer = null;
       }
-
-      return { errorCode: playerState };
+  
+      return { errorCode: currentState };
     }
-
+  
     if (playerState === "fish_bit") {
       playerState = "playing_minigame";
-
+  
       const selectedDifficulty = ATTEMPTS_DIFFICULTY[attemptNumber];
-
       attemptNumber = (attemptNumber + 1) % ATTEMPTS_DIFFICULTY.length;
-
+  
       if (fishEscapeTimer) {
         clearTimeout(fishEscapeTimer);
         fishEscapeTimer = null;
       }
-
-      try {
-        catchingMinigame.start(selectedDifficulty);
-        return { difficulty: selectedDifficulty };
-      } catch (error) {
-        return { errorCode: playerState };
-      }
+  
+      catchingMinigame.start(selectedDifficulty);
+      return { difficulty: selectedDifficulty };
     }
-
-    return { errorCode: playerState };
+  
+    return { errorCode: currentState };
   };
 
   const updateCatchBarDirection = (direction) => {
-    if (playerState === "playing_minigame")
+    if (playerState === "playing_minigame") {
       catchingMinigame.updateCatchBarDirection(direction);
+    }
     //catchingMinigame.updateCatchBarDirection(
     //  catchingMinigame.getInfo().catchBar.getInfo().direction
     //);
