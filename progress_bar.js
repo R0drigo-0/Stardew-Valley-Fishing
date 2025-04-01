@@ -2,13 +2,10 @@ import {
   computeProgressBarCurrentPosition,
   PROGRESS_BAR_INITIAL_POSITION,
   PROGRESS_BAR_TICK_FREQUENCY,
-} from "./public/globals.js";
-
-import {
-  timeForProgressBarToReachLimit,
   computeCatchBarCurrentPosition,
   computeFishCurrentPosition,
   catchBarAndFishTouch,
+  timeForProgressBarToReachLimit
 } from "./public/globals.js";
 
 export default function ProgressBar(fishSpeed, finishCallback) {
@@ -41,7 +38,6 @@ export default function ProgressBar(fishSpeed, finishCallback) {
       const timeToReachLimit = timeForProgressBarToReachLimit(
         direction,
         lastSwapPosition,
-        fishSpeed
       );
 
       t1 = setTimeout(() => {
