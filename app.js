@@ -21,12 +21,11 @@ const game = Game();
 // Implement your endpoints here...
 app.get("/cast_line", (req, res) => {
   const playerState = game.castLine();
-  if (result !== "line_cast") {
-    return res.status(400).json({ errorCode: result });
+  if (playerState !== null) {
+    return res.status(400).json({ errorCode: playerState });
   }
-  return res.status(200).json({ playerState: result });
+  return res.status(200).json({ success: true });
 });
-
 app.get("/wait_for_bite", (req, res) => {
   game
     .waitForBite()
