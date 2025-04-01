@@ -20,7 +20,7 @@ export default function Fish(speed, swappedDirectionCallback) {
     lastSwapAt = Date.now();
     direction = direction === "up" ? "down" : "up";
     swappedDirectionCallback(direction, lastSwapAt, lastSwapPosition);
-    timer = setTimeout(swapDirection, computeFishTimeToNextSwap());
+    timer = setTimeout(swapDirection, computeFishTimeToNextSwap(direction, lastSwapPosition, speed));
   };
 
   const start = () => {
@@ -30,7 +30,7 @@ export default function Fish(speed, swappedDirectionCallback) {
 
     swappedDirectionCallback(direction, lastSwapAt, lastSwapPosition);
 
-    timer = setTimeout(swapDirection, computeFishTimeToNextSwap());
+    timer = setTimeout(swapDirection, computeFishTimeToNextSwap(direction, lastSwapPosition, speed));
   };
 
   const getInfo = () => {

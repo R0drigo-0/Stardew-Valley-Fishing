@@ -56,7 +56,7 @@ app.get("/move_catch_bar_up", (req, res) => {
 });
 
 app.get("/stop_moving_catch_bar_up", (req, res) => {
-  game.updateCatchBarDirection("none");
+  game.updateCatchBarDirection("down");
   res.status(200).json({ success: true });
 });
 

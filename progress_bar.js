@@ -57,15 +57,15 @@ export default function ProgressBar(fishSpeed, finishCallback) {
 
     t2 = setInterval(() => {
       let currentPositionCathBar = computeCatchBarCurrentPosition(
-        direction,
-        lastSwapAt,
-        lastSwapPosition
+        catchBarDirection,
+        catchBarLastSwapAt,
+        catchBarLastSwapPosition
       );
-
+      
       let currentPositionFish = computeFishCurrentPosition(
-        direction,
-        lastSwapAt,
-        lastSwapPosition,
+        fishDirection,
+        fishLastSwapAt,
+        fishLastSwapPosition,
         fishSpeed
       );
 

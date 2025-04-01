@@ -13,7 +13,7 @@ export default function CatchBar(swappedDirectionCallback) {
     direction = "down";
 
     if (swappedDirectionCallback) {
-      swappedDirectionCallback();
+      swappedDirectionCallback(direction, lastSwapAt, lastSwapPosition);
     }
   };
 
@@ -31,7 +31,7 @@ export default function CatchBar(swappedDirectionCallback) {
     );
 
     if (swappedDirectionCallback) {
-      swappedDirectionCallback();
+      swappedDirectionCallback(direction, lastSwapAt, lastSwapPosition);
     }
   };
 

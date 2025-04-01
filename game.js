@@ -97,9 +97,6 @@ export default function Game() {
     if (playerState === "playing_minigame") {
       catchingMinigame.updateCatchBarDirection(direction);
     }
-    //catchingMinigame.updateCatchBarDirection(
-    //  catchingMinigame.getInfo().catchBar.getInfo().direction
-    //);
   };
 
   const getCatchingMiniGameInfo = () => {
