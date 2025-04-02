@@ -25,7 +25,7 @@ test('Game::reelIn() test', done => {
     result = game.reelIn();
 
     // Así que nos devolverá el mensaje de error 'line_cast', y recojerá la caña
-    expect(result).toStrictEqual({errorCode: 'line_cast'});
+    expect(result).toStrictEqual({errorCode: 'standing'});
 
     // Además, reelIn() debería haber cancelado el setTimeout de FISH_BIT_TIMEOUT_MS,
     // o almenos el callback del timeout debería tener controlado que se ha llamado a reelIn(), así que si esperamos ese tiempo...

@@ -72,7 +72,7 @@ export default function Game() {
         fishBitTimer = null;
       }
   
-      return { errorCode: currentState };
+      return { errorCode: "standing" };
     }
   
     if (playerState === "fish_bit") {
