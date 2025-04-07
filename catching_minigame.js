@@ -1,6 +1,5 @@
 import {
   DIFFICULTY_TO_FISH_SPEED,
-  PROGRESS_BAR_INITIAL_POSITION,
 } from "./public/globals.js";
 
 import Fish from "./fish.js";
@@ -8,65 +7,54 @@ import CatchBar from "./catch_bar.js";
 import ProgressBar from "./progress_bar.js";
 
 export default function CatchingMinigame(finishCallback) {
-  let progressBar = undefined;
-  let catchBar = undefined;
+  let progress_bar = undefined;
+  let catch_bar = undefined;
   let fish = undefined;
+  let fishSpeed = undefined;
+
+  //variables para el catch bar
+
 
   const start = (difficulty) => {
-    let fishSpeed = DIFFICULTY_TO_FISH_SPEED[difficulty];
+    
+     fishSpeed = DIFFICULTY_TO_FISH_SPEED[difficulty];
+     console.log(`fishSpeed: ${fishSpeed}`);
 
-    catchBar = CatchBar(
-      (catchBarDirection, catchBarLastSwapAt, catchBarLastSwapPosition) => {
-        if (progressBar) {
-          progressBar.catchBarSwappedDirection(
-            catchBarDirection,
-            catchBarLastSwapAt,
-            catchBarLastSwapPosition
-          );
-        }
-      }
-    );
+     //Initzialitzacio de variables locals
+      
 
-    fish = Fish(
-      fishSpeed,
-      (fishDirection, fishLastSwapAt, fishLastSwapPosition) => {
-        if (progressBar) {
-          progressBar.fishSwappedDirection(
-            fishDirection,
-            fishLastSwapAt,
-            fishLastSwapPosition
-          );
-        }
-      }
-    );
-
-    progressBar = ProgressBar(fishSpeed, () => {
-      if (fish) {
-        fish.finish();
-      }
+     progress_bar = ProgressBar(fishSpeed,()=>{
       finishCallback();
-    });
-
-    progressBar.start();
-    catchBar.start();
+      fish.finish();
+      console.log(`progress_bar finished`);
+      
+     })
+     fish = Fish(fishSpeed,progress_bar.fishSwappedDirection);
+     catch_bar = CatchBar(progress_bar.catchBarSwappedDirection);
+    progress_bar.start();
+    catch_bar.start();
     fish.start();
-  };
+    
+    
+    }
+    
+    
+    const getInfo = () => {
+      
+      return {
+        'progressBarInfo': progress_bar.getInfo(),
+        'catchBarInfo': catch_bar.getInfo(),
+        'fishInfo': fish.getInfo()
+      };
+    }
 
-  const getInfo = () => {
+    const updateCatchBarDirection = (newDirection) => {
+      catch_bar.updateDirection(newDirection);
+    }
+
     return {
-      progressBar: progressBar.getInfo(),
-      catchBar: catchBar.getInfo(),
-      fish: fish.getInfo(),
+      start,
+      getInfo,
+      updateCatchBarDirection,
     };
-  };
-
-  const updateCatchBarDirection = (direction) => {
-    catchBar.updateDirection(direction);
-  };
-
-  return {
-    start,
-    getInfo,
-    updateCatchBarDirection,
-  };
 }
