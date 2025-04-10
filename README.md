@@ -60,11 +60,11 @@ Navigate to http://localhost:8081 in your browser. You should see:
 
 <table>
   <tr>
-    <td><img src="assets/Standing.png" alt="Gameplay Screenshot 1" width="330" height="169"/></td>
-    <td><img src="assets/Playing.png" alt="Gameplay Screenshot 2" width="330" height="169"/></td>
+    <td><img src="assets/Standing.png" alt="Gameplay Screenshot 1" width="400" height="225"/></td>
+    <td><img src="assets/Playing.png" alt="Gameplay Screenshot 2" width="400" height="225"/></td>
   </tr>
   <tr>
-    <td><img src="assets/Fishing.png" alt="Gameplay Screenshot 3" width="300" height="169"/></td>
-    <td><img src="assets/Fish.png" alt="Gameplay Screenshot 4" width="300" height="169"/></td>
+    <td><img src="assets/Fishing.png" alt="Gameplay Screenshot 3" width="400" height="225"/></td>
+    <td><img src="assets/Fish.png" alt="Gameplay Screenshot 4" width="400" height="225"/></td>
   </tr>
 </table>
